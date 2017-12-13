@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+    
+
+	<!--  读取jdbc的配置文件-->
+	<util:properties id="properties" location="classpath:jdbc.properties"></util:properties>
+	
+	<!--数据源：数据库连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="#{properties[driverClass]}"></property>
+		<property name="jdbcUrl" value="#{properties[jdbcUrl]}"></property>
+		<property name="user" value="#{properties[user]}"></property>
+		<property name="password" value="#{properties[password]}"></property>
+		
+		<property name="initialPoolSize" value="2"></property>
+		<property name="minPoolSize" value="2"></property>
+		<property name="maxPoolSize" value="20"></property>
+		<property name="maxStatements" value="100"></property>
+		<property name="checkoutTimeout" value="1000"></property>
+		<property name="acquireIncrement" value="2"></property>
+		
+	</bean>
+	
+	
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/ssh/pojo/User.hbm.xml</value>
+				<value>com/ssh/pojo/Role.hbm.xml</value>
+				<value>com/ssh/pojo/Attendance.hbm.xml</value>
+				
+				<value>com/ssh/pojo/FileTransfer.hbm.xml</value>
+				<value>com/ssh/pojo/Leave.hbm.xml</value>
+				<value>com/ssh/pojo/PersonLeave.hbm.xml</value>
+				<value>com/ssh/pojo/Home.hbm.xml</value>
+				<value>com/ssh/pojo/Owner.hbm.xml</value>
+				<value>com/ssh/pojo/Inform.hbm.xml</value>
+				<value>com/ssh/pojo/Complaint.hbm.xml</value>
+				<value>com/ssh/pojo/Cost.hbm.xml</value>
+				<value>com/ssh/pojo/Park.hbm.xml</value></list>
+		</property></bean>
+		
+		
+	<import resource="applicationContext-other.xml"/>
+	
+		
+	 <!-- 配置事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 配置事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<!-- 传播规则 -->
+	  <tx:attributes>
+	  <!-- method 方法名
+	      name="add*":方法名以add开头的所有方法 add addx addxy addxyz
+	     propagation="REQUIRED":必须开启事务(当前所有事务则在事务中运行 若无事务 则新建一个事务)
+	     isolation="DEFAULT":Spring 默认的隔离级别 (read-commited)  -->
+	    <tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT"/>
+	     <tx:method name="modify*" propagation="REQUIRED"/>
+	      <tx:method name="remove*" propagation="REQUIRED"/>
+	      <!-- 方法名不是add modify remove开头的所有的方法,不需要事务,且只读 -->
+	      <tx:method name="*" propagation="NOT_SUPPORTED" read-only="true"/>
+	      
+	  </tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置切面 -->
+	<aop:config>
+	<aop:pointcut expression="execution(* com.**.service.*.*(..))" id="methods"/>
+	<!-- advisor与切入点关联 形成切面 -->
+	<aop:advisor advice-ref="txAdvice" pointcut-ref="methods"/>
+	</aop:config>
+</beans>

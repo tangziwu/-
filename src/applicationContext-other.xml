@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- dao: dao层 carDao的父类必须注入sessionFactory 从而获取HibernateTemplate实体类 -->
+	<bean id="userDao" class="com.ssh.dao.UserDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="attendanceDao" class="com.ssh.dao.AttendanceDaoImp">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="fileWordDao" class="com.ssh.dao.FileWordDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="leavedao2" class="com.ssh.dao.LeaveDaoImpl2">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="homeDao" class="com.ssh.dao.HomeDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="informDao"  class="com.ssh.dao.InformDao">
+	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+	<bean id="costDao" class="com.ssh.dao.CostDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="ownerDao" class="com.ssh.dao.OwnerDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="complaintDao"  class="com.ssh.dao.ComplaintDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- service: service层 -->
+	<bean id="userService" class="com.ssh.service.UserServiceImp">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="attendanceService" class="com.ssh.service.AttendanceServiceImp">
+		<property name="attendanceDao" ref="attendanceDao"></property>
+	</bean>
+	<bean id="fileWordService" class="com.ssh.service.FileWordServiceImpl">
+		<property name="fileWordDao" ref="fileWordDao"></property>
+	</bean>
+	<bean id="leaveservice2" class="com.ssh.service.LeaveServiceImpl2">
+		<property name="leavedao2" ref="leavedao2"></property>
+	</bean>
+	<bean id="homeService" class="com.ssh.service.HomeService">
+		<property name="homeDao" ref="homeDao"/>
+		<property name="ownerDao" ref="ownerDao"/>
+	</bean>
+	<bean id="complaintService"  class="com.ssh.service.ComplaintService">
+		<property name="complaintDao" ref="complaintDao"/>
+	</bean>
+	
+	
+	<bean id="ownerService" class="com.ssh.service.OwnerService">
+		<property name="ownerDao" ref="ownerDao"/>
+	</bean>
+	
+	<bean id="informService"  class="com.ssh.service.InformService">
+		<property name="informDao" ref="informDao"/>
+	</bean>
+	<bean id="costService" class="com.ssh.service.CostServiceImpl">
+		<property name="costDao" ref="costDao"></property>
+	</bean>
+	<!-- 注入action -->
+	<bean id="userAction" class="com.ssh.action.UserAction">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="attendanceAction" class="com.ssh.action.AttendanceAction">
+		<property name="attendanceService" ref="attendanceService" />
+	</bean>
+	<bean id="fileWordAction" class="com.ssh.action.FileWordAction">
+		   <property name="fileWordService" ref="fileWordService"/>
+	</bean>
+	<bean id="leaveAction" class="com.ssh.action.LeaveAction">
+		   <property name="leaveservice2" ref="leaveservice2"/>
+	</bean>
+	
+	<bean id="homeAction" class="com.ssh.action.HomeAction">
+		<property name="homeService" ref="homeService"/>
+	</bean>
+	<bean id="costAction" class="com.ssh.action.CostAction">
+		<property name="costService" ref="costService"></property>
+	</bean>
+	
+	
+	<bean id="ownerAction" class="com.ssh.action.OwnerAction">
+		<property name="ownerService" ref="ownerService"/>
+	</bean>
+	
+	<bean id="informAction" class="com.ssh.action.InformAction">
+			<property name="informService" ref="informService"/>
+	</bean>
+	<bean id="complaintAction" class="com.ssh.action.ComplaintAction">
+			<property name="complaintService" ref="complaintService"/>
+	</bean>
+</beans>

@@ -16,10 +16,9 @@
 		<script type="text/javascript" src="js/jquery-1.6.min.js" ></script>
 		<script type="text/javascript" src="js/mine.js" ></script>
 		<script type="text/javascript" src="js/SimpleTree.js"></script>
-		<script type="text/javascript">
-		 <script type="text/javascript" charset="utf-8" src="js/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/ueditor/ueditor.all.min.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="${basePath }js/ueditor/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/ueditor/ueditor.config.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="js/ueditor/ueditor.all.min.js"> </script>
+	    <script type="text/javascript" charset="utf-8" src="${basePath }js/ueditor/lang/zh-cn/zh-cn.js"></script>
 		</script>
 		<script type="text/javascript">
 		window.onload=function(){

@@ -51,30 +51,30 @@
                             <td height="35" width="120" align="center" bgcolor="#6495ED">操作</td>
                         </tr>
                             <c:forEach var="cost" items="${costs}">
-					                        	<tr>
-					                        		<form action="costAction_modify" method="post" name="f">
-					                        		<td height="35" align="center" bgcolor="#FFFFFF"><input name="cost.CId" style="display: none;" type="hidden" value="${cost.CId }">
-					                        			${cost.CId }
-					                        		</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.HId }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CProperty }</td>
-					                        		
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.PId }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CPark }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CPurchase }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF"><fmt:formatDate value="${cost.CPayment }" pattern="yyyy-MM-dd"/></td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CAmount }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">
-					                        			<input name="cost.CAmountpaid" type="number" value="${cost.CAmountpaid }" step="0.01">
-					                        		</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CAccount }</td>
-					                        		<td height="35" align="center" bgcolor="#FFFFFF"><a><button type="submit" style="background: none;border: none;color: red;">缴费</button></a></td>
-					                        		</form>
-					                        	</tr>
-				                        	</c:forEach>
-        						
-								
-						
+	                        	<tr>
+	                        		<form action="costAction_modify" method="post" name="f">
+	                        		<td height="35" align="center" bgcolor="#FFFFFF"><input name="cost.CId" style="display: none;" type="hidden" value="${cost.CId }">
+	                        			${cost.CId }
+	                        		</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.HId }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CProperty }</td>
+	                        		
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.PId }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CPark }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CPurchase }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF"><fmt:formatDate value="${cost.CPayment }" pattern="yyyy-MM-dd"/></td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CAmount }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">
+	                        			<input name="cost.CAmountpaid" type="number" value="${cost.CAmountpaid }" step="0.01">
+	                        		</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF">${cost.CAccount }</td>
+	                        		<td height="35" align="center" bgcolor="#FFFFFF"><a><button type="submit" style="background: none;border: none;color: red;">缴费</button></a></td>
+	                        		</form>
+	                        	</tr>
+                        	</c:forEach>
+    						
+				
+		
 							</table>
 							
 							
@@ -100,13 +100,7 @@
 					</ul>
 				</div>
 			</div>
-			
-			
-			
 		</div>
 		<script src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript">
-		 
-		</script>
 	</body>
 </html>

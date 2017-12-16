@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <package name="CRUD" extends="struts-default" namespace="/">
+   <!-- 所有类的实例都有spring管理和维护 -->
+		<action name="userAction_*" method="{1}" class="userAction">
+			<result name="success" type="chain">attendanceAction_add</result>
+			<result name="input">/index.jsp</result>
+			<result name="error">/index.jsp</result>
+			<result name="logout" type="redirect">/index.jsp</result>
+            <result name="list">/emp.jsp</result>
+            <result name="findById">/password.jsp</result>
+            <result name="findById1">/emp-add.jsp</result>
+            <result name="findById2">/emp-add2.jsp</result>
+            <result name="save" type="redirectAction">userAction_findAll</result>
+            <result name="add" type="redirectAction">userAction_findAll</result>
+             <result name="modify" type="redirectAction">userAction_findAll</result>
+             <result name="modifypassword"  type="redirectAction">userAction_logout</result>
+              <result name="remove" type="redirectAction">userAction_findAll</result>
+            <result name="findAll">/emp.jsp</result>
+            
+         </action>
+		<action name="attendanceAction_*" method="{1}" class="attendanceAction">
+			<!-- 引用拦截器
+			<interceptor-ref name="inter" /> -->
+			<result name="add" type="redirect">/main.jsp</result>
+			<result name="find" type="redirect">/attendance.jsp</result>
+			<result name="list" type="redirect">/attendance.jsp</result>
+			<result name="time" type="redirect">/attendance.jsp</result>
+			<result name="findAll" type="redirect">/attendance.jsp</result>
+		</action>
+		
+		
+		<action name="webUploaderAction_*" method="{1}" class="com.ssh.action.WebUploaderAction"> 
+			<!-- 指定上传文件的拦截器 -->
+			 <interceptor-ref name="fileUpload"> 
+			
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			
+			<!-- 上传到指定目录 -->
+			<param name="dir">/upload</param>
+		</action>
+		
+		 <action name="fileWordAction_*" method="{1}" class="fileWordAction">
+         
+            <result name="add">/main.jsp</result>
+            <result name="find">/filedown.jsp</result>
+            <result name="findAll">/filedown.jsp</result>
+      </action>
+      
+       <action name="leaveAction_*" method="{1}" class="leaveAction">
+         
+            <result name="add">/main.jsp</result>
+            <result name="find" >/leave-message.jsp</result>
+            <result name="find1">/freeday.jsp</result>
+			<result name="findId" type="redirectAction">leaveAction_find1</result>
+      </action>
+      
+      <action name="homeAction_*" method="{1}" class="homeAction">
+			<result name="modifyByIdHome">/house-management.jsp</result>
+			<result name="saveHome" type="redirect">/house.jsp</result>
+			<result name="addOid" type="redirect">/house.jsp</result>
+			<result name="error" type="redirect">/404.jsp</result>
+			<result name="removeOid" type="redirect">/house.jsp</result>
+		</action>
+		
+		
+		
+		<action name="ownerAction_*" method="{1}" class="ownerAction">
+			<result name="modifyByIdOwner">/owner_edit.jsp</result>
+			<result name="saveOwner" type="redirect">/owner.jsp</result>
+			<result name="error" type="redirect">/404.jsp</result>
+		</action>
+		
+		
+		<action name="informAction_*" method="{1}" class="informAction">
+			<result name="find">/advice.jsp</result><!--分页查询  -->
+			<result name="findAll">/advice.jsp</result><!--分页查询  -->
+			<result name="findAll1">/findadvise.jsp</result><!--分页查询  -->
+			<result name="remove" type="redirectAction">informAction_findAll</result>
+			<result name="add" type="redirectAction">informAction_findAll</result>
+		</action>
+		<action name="complaintAction_*" method="{1}" class="complaintAction">
+			<result name="find">/complaints.jsp</result>
+			<result name="findAll">/complaints.jsp</result>
+			<result name="remove" type="redirectAction">complaintAction_findAll</result>
+			<result name="add" type="redirectAction">complaintAction_findAll</result>
+			<result name="modify" type="redirectAction">complaintAction_findAll</result>
+		</action>
+		
+		 <action name="costAction_*" method="{1}" class="costAction">
+         	<result name="list">/Mycost.jsp</result>
+         	<result name="findAll">/Mycost.jsp</result>
+         	<result name="modify" type="redirectAction">costAction_list</result>
+         	<result name="add" type="redirectAction">costAction_findAll</result>
+         	
+    	  </action>
+		</package>
+</struts>    
